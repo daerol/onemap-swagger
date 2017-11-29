@@ -6,35 +6,28 @@ info:
   title: Onemap 2.0 API 
   termsOfService: 'https://www.onemap.sg/home/TermsOfUse.html'
   contact:
-    email: apiteam@swagger.io
+    email: onemap@sla.gov.sg
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
-host: petstore.swagger.io
-basePath: /v2
+host: developer.onemap.sg
+basePath: /
 tags:
-  - name: pet
-    description: Everything about your Pets
+  - name: OneMap 2.0 API documentation
+    description: All about the OneMap API
     externalDocs:
       description: Find out more
-      url: 'http://swagger.io'
-  - name: store
-    description: Access to Petstore orders
-  - name: user
-    description: Operations about user
-    externalDocs:
-      description: Find out more about our store
-      url: 'http://swagger.io'
+      url: 'https://docs.onemap.sg'
 schemes:
   - http
 paths:
-  /pet:
+  /commonapi/search:
     post:
       tags:
-        - pet
-      summary: Add a new pet to the store
-      description: ''
-      operationId: addPet
+        - search
+      summary: Provide searching of address data for a given search value.
+      description: 'The API provides searching of address data for a given search value. It returns search results with both latitude, longitude and x, y coordinates of the searched.'
+      operationId: search
       consumes:
         - application/json
         - application/xml
@@ -51,15 +44,15 @@ paths:
       responses:
         '405':
           description: Invalid input
-      security:
-        - petstore_auth:
-            - 'write:pets'
-            - 'read:pets'
-    put:
+      
+      
+  
+  /privateapi/commonsvc/revgeocodexy:     
+    post:
       tags:
-        - pet
-      summary: Update an existing pet
-      description: ''
+        - Reverse Geocode(SVY21)
+      summary: Retrieves a building address
+      description: 'The API retrieves a building address that lies within the defined buffer/radius of the specified x, y coordinates.'
       operationId: updatePet
       consumes:
         - application/json
@@ -69,8 +62,8 @@ paths:
         - application/json
       parameters:
         - in: body
-          name: body
-          description: Pet object that needs to be added to the store
+          name: searchVal
+          description: Keywords entered by user that is used to filter out the results.
           required: true
           schema:
             $ref: '#/definitions/Pet'
@@ -82,9 +75,7 @@ paths:
         '405':
           description: Validation exception
       security:
-        - petstore_auth:
-            - 'write:pets'
-            - 'read:pets'
+        - api_key: []
   /pet/findByStatus:
     get:
       tags:
@@ -702,5 +693,5 @@ definitions:
       message:
         type: string
 externalDocs:
-  description: Find out more about Swagger
-  url: 'http://swagger.io'
+  description: Find out more about OneMap
+  url: 'https://docs.onemap.sg'
