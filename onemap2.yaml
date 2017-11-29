@@ -128,7 +128,7 @@ paths:
         - name: token
           in: query
           type: string
-          description: API token provided by the Authentication Service
+          description: API token provided by the API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
           default:
           required: true
         - name: buffer
@@ -183,7 +183,7 @@ paths:
         - name: token
           in: query
           type: string
-          description: API token provided by the Authentication Service
+          description: API token provided by the API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
           default:
           required: true
         - name: buffer
@@ -421,18 +421,125 @@ paths:
         '500':
           description: Internal Server Error
 
-securityDefinitions:
-  petstore_auth:
-    type: oauth2
-    authorizationUrl: 'http://petstore.swagger.io/oauth/dialog'
-    flow: implicit
-    scopes:
-      'write:pets': modify pets in your account
-      'read:pets': read your pets
-  api_key:
-    type: apiKey
-    name: api_key
-    in: header
+
+#Check Theme Status
+  /privateapi/themesvc/checkThemeStatus:     
+    get:
+      tags:
+        - Themes
+      summary: Check Theme Status
+      description: 'Check the updatedness of themes.'
+      operationId: checkThemeStatus
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: queryName
+          in: query
+          type: string
+          description: Queries status of a theme. Themes’ query names can be retrieved using [Get All Themes Info](https://docs.onemap.sg/#get-all-themes-info) service.
+          default: 1.3,103.8
+          required: true
+        - name: dateTime
+          description: |
+            The date and time. Format **YYYY-MM-DDTHH:MM:SS:FFFZ**.
+            EG: **2015-02-10T16:00:00.000Z**.
+          required: true
+          type: string
+          format: date-time
+          in: query
+          default: 2015-02-10T16:00:00.000Z
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+      responses:
+        '200':
+          description: Successful
+        '403':
+          description: Forbidden
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+
+#Get Theme Info
+  /privateapi/themesvc/getThemeInfo:     
+    get:
+      tags:
+        - Themes
+      summary: Get Theme Info
+      description: 'This API searches themes via the queryName and returns the themes’ info.'
+      operationId: getThemeInfo
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+        - name: queryName
+          in: query
+          type: string
+          description: Queries status of a theme. Themes’ query names can be retrieved using [Get All Themes Info](https://docs.onemap.sg/#get-all-themes-info) service.
+          default: 1.3,103.8
+          required: true
+      responses:
+        '200':
+          description: Successful
+        '403':
+          description: Forbidden
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+
+#Get All Themes Info
+  /privateapi/themesvc/getAllThemesInfo:     
+    get:
+      tags:
+        - Themes
+      summary: Get All Themes Info
+      description: 'This API retrieves and returns a list of all available themes.'
+      operationId: getAllThemesInfo
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+        - name: moreInfo
+          in: query
+          type: string
+          description: |
+            **Default**: N
+            **Values**: Y, N
+            Returns more information of themes such as icon names, category names, and theme owners if set as Y.          
+          default: N
+          required: false
+      responses:
+        '200':
+          description: Successful
+        '403':
+          description: Forbidden
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+
+
+
+
+
 externalDocs:
   description: Find out more about OneMap
   url: 'https://docs.onemap.sg'
