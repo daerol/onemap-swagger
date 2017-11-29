@@ -22,7 +22,7 @@ schemes:
   - https
 paths:
   /commonapi/search:
-    post:
+    get:
       tags:
         - search
       summary: Provide searching of address data for a given search value.
