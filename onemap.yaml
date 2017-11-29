@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
-host: developer.onemap.sg
+host: developers.onemap.sg
 basePath: /
 tags:
   - name: OneMap 2.0 API documentation
@@ -19,7 +19,7 @@ tags:
       description: Find out more
       url: 'https://docs.onemap.sg'
 schemes:
-  - http
+  - https
 paths:
   /commonapi/search:
     post:
@@ -32,19 +32,34 @@ paths:
         - application/json
         - application/xml
       produces:
-        - application/xml
         - application/json
       parameters:
-        - in: body
-          name: body
-          description: Pet object that needs to be added to the store
+        - name: searchVal
+          in: query
           required: true
-          schema:
-            $ref: '#/definitions/Pet'
+          type: string
+          default: revenue
+          description: Keywords entered by user that is used to filter out the results.
+        - name: returnGeom
+          in: query
+          required: true
+          description: Checks if user wants to return the geometry.
+          default: Y
+        - name: getAddrDetails
+          in: query
+          required: true
+          description: Checks if user wants to return address details for a point.
+          default: Y
+        - name: pageNum
+          in: query
+          description: Specifies the page to retrieve your search results from.
+          required: false
       responses:
+        '200':
+          description: Successful
         '405':
-          description: Invalid input
-      
+          description: Invalid Input
+
       
   
   /privateapi/commonsvc/revgeocodexy:     
