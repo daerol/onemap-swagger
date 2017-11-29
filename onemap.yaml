@@ -21,6 +21,41 @@ tags:
 schemes:
   - https
 paths:
+
+
+  # Authorization
+  /privateapi/auth/post/getToken:
+    post:
+      tags:
+        - Authentication Service (POST)
+      summary: Retrieve token key
+      description: 'This API authenticates the user credentials and the service returns response in JSON format.'
+      operationId: getToken
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: email
+          in: formData
+          required: true
+          type: string
+          description: Registered email entered by the user during the registration.
+        - name: password
+          in: formData
+          type: string
+          required: true
+          description: Registered password entered by the user during the registration. 
+      responses:
+        '200':
+          description: Successful
+        '405':
+          description: Invalid Input
+        '500':
+          description: Internal Server Error
+
+
+  # Search
   /commonapi/search:
     get:
       tags:
@@ -78,11 +113,13 @@ paths:
           in: query
           type: string
           description: X,Y Coordinates in SVY21 format
+          default: 24291.97788882387,31373.0117224489
           required: true
         - name: token
           in: query
           type: string
           description: API token provided by the Authentication Service
+          default:
           required: true
         - name: buffer
           description: Rounds up all building in a circumference from a point like a compass; and searches building addresses within the buffer/radius range.
