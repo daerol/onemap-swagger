@@ -4,7 +4,7 @@ info:
     Welcome to OneMap API documentation.
   version: 1.0.0
   title: Onemap 2.0 API 
-  termsOfService: 'https://www.onemap.sg/home/TermsOfUse.html'
+  termsOfService: 'https://www.onemap.sg/legal/termsofuse.html'
   contact:
     email: onemap@sla.gov.sg
   license:
@@ -61,34 +61,52 @@ paths:
           description: Invalid Input
 
       
-  
+  # Reverse Geocode (SVY21)
   /privateapi/commonsvc/revgeocodexy:     
     post:
       tags:
         - Reverse Geocode(SVY21)
       summary: Retrieves a building address
       description: 'The API retrieves a building address that lies within the defined buffer/radius of the specified x, y coordinates.'
-      operationId: updatePet
+      operationId: revgeocodexy
       consumes:
         - application/json
-        - application/xml
       produces:
-        - application/xml
         - application/json
       parameters:
-        - in: body
-          name: searchVal
-          description: Keywords entered by user that is used to filter out the results.
+        - name: location
+          in: query
+          type: string
+          description: X,Y Coordinates in SVY21 format
           required: true
-          schema:
-            $ref: '#/definitions/Pet'
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the Authentication Service
+          required: true
+        - name: buffer
+          description: Rounds up all building in a circumference from a point like a compass; and searches building addresses within the buffer/radius range.
+          required: false
+          type: integer
+          format: int64
+          in: query
+          default: 10
+        - name: addressType
+          description: Provide user the selection of All of HDB properties within the buffer/radius. If HDB is chosen, this will filter to show all HDB-related buildings.
+          required: false
+          type: string
+          in: query
+          default: All
+        - name: otherFeatures
+          required: false
+          description: Enables users to retrieve information on resvoirs, playgrounds, jetties and many more.
+          default: N
+          type: string
+          in: query
+
       responses:
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Pet not found
-        '405':
-          description: Validation exception
+        '200':
+          description: Successful
       security:
         - api_key: []
   /pet/findByStatus:
