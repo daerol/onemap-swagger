@@ -59,7 +59,7 @@ paths:
   /commonapi/search:
     get:
       tags:
-        - search
+        - OneMap REST APIs
       summary: Provide searching of address data for a given search value.
       description: 'The API provides searching of address data for a given search value. It returns search results with both latitude, longitude and x, y coordinates of the searched.'
       operationId: search
@@ -98,10 +98,10 @@ paths:
       
   # Reverse Geocode (SVY21)
   /privateapi/commonsvc/revgeocodexy:     
-    post:
+    get:
       tags:
-        - Reverse Geocode(SVY21)
-      summary: Retrieves a building address
+        - OneMap REST APIs
+      summary: Retrieves a building address by specifying x, y coordinates
       description: 'The API retrieves a building address that lies within the defined buffer/radius of the specified x, y coordinates.'
       operationId: revgeocodexy
       consumes:
@@ -144,45 +144,56 @@ paths:
       responses:
         '200':
           description: Successful
-      security:
-        - api_key: []
-  /pet/findByStatus:
+
+  #Reverse Geocode(WGS84)
+  /privateapi/commonsvc/revgeocode:     
     get:
       tags:
-        - pet
-      summary: Finds Pets by status
-      description: Multiple status values can be provided with comma separated strings
-      operationId: findPetsByStatus
+        - OneMap REST APIs
+      summary: Retrieves a building address by specifying latitude, longitude coordinates
+      description: 'This API retrieves a building address that lies within the defined buffer/radius of the specified latitude, longitude coordinates. Road names are retuned within 20m for the specified coordinates.'
+      operationId: revgeocode
+      consumes:
+        - application/json
       produces:
-        - application/xml
         - application/json
       parameters:
-        - name: status
+        - name: location
           in: query
-          description: Status values that need to be considered for filter
+          type: string
+          description: Latitude and longitude Coodinates in WGS84 format.
+          default: 1.3,103.8
           required: true
-          type: array
-          items:
-            type: string
-            enum:
-              - available
-              - pending
-              - sold
-            default: available
-          collectionFormat: multi
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the Authentication Service
+          default:
+          required: true
+        - name: buffer
+          description: Rounds up all building in a circumference from a point like a compass; and searches building addresses within the buffer/radius range.
+          required: false
+          type: integer
+          format: int64
+          in: query
+          default: 10
+        - name: addressType
+          description: Provide user the selection of All of HDB properties within the buffer/radius. If HDB is chosen, this will filter to show all HDB-related buildings.
+          required: false
+          type: string
+          in: query
+          default: All
+        - name: otherFeatures
+          required: false
+          description: Enables users to retrieve information on resvoirs, playgrounds, jetties and many more.
+          default: N
+          type: string
+          in: query
+
       responses:
         '200':
-          description: successful operation
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Pet'
-        '400':
-          description: Invalid status value
-      security:
-        - petstore_auth:
-            - 'write:pets'
-            - 'read:pets'
+          description: Successful
+
   /pet/findByTags:
     get:
       tags:
@@ -643,125 +654,6 @@ securityDefinitions:
     type: apiKey
     name: api_key
     in: header
-definitions:
-  Order:
-    type: object
-    properties:
-      id:
-        type: integer
-        format: int64
-      petId:
-        type: integer
-        format: int64
-      quantity:
-        type: integer
-        format: int32
-      shipDate:
-        type: string
-        format: date-time
-      status:
-        type: string
-        description: Order Status
-        enum:
-          - placed
-          - approved
-          - delivered
-      complete:
-        type: boolean
-        default: false
-    xml:
-      name: Order
-  Category:
-    type: object
-    properties:
-      id:
-        type: integer
-        format: int64
-      name:
-        type: string
-    xml:
-      name: Category
-  User:
-    type: object
-    properties:
-      id:
-        type: integer
-        format: int64
-      username:
-        type: string
-      firstName:
-        type: string
-      lastName:
-        type: string
-      email:
-        type: string
-      password:
-        type: string
-      phone:
-        type: string
-      userStatus:
-        type: integer
-        format: int32
-        description: User Status
-    xml:
-      name: User
-  Tag:
-    type: object
-    properties:
-      id:
-        type: integer
-        format: int64
-      name:
-        type: string
-    xml:
-      name: Tag
-  Pet:
-    type: object
-    required:
-      - name
-      - photoUrls
-    properties:
-      id:
-        type: integer
-        format: int64
-      category:
-        $ref: '#/definitions/Category'
-      name:
-        type: string
-        example: doggie
-      photoUrls:
-        type: array
-        xml:
-          name: photoUrl
-          wrapped: true
-        items:
-          type: string
-      tags:
-        type: array
-        xml:
-          name: tag
-          wrapped: true
-        items:
-          $ref: '#/definitions/Tag'
-      status:
-        type: string
-        description: pet status in the store
-        enum:
-          - available
-          - pending
-          - sold
-    xml:
-      name: Pet
-  ApiResponse:
-    type: object
-    properties:
-      code:
-        type: integer
-        format: int32
-      type:
-        type: string
-      message:
-        type: string
 externalDocs:
   description: Find out more about OneMap
   url: 'https://docs.onemap.sg'
