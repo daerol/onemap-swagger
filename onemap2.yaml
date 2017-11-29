@@ -22,8 +22,8 @@ schemes:
   - https
 paths:
 
-
-  # Authorization
+# OneMap REST APIs
+# Authorization
   /privateapi/auth/post/getToken:
     post:
       tags:
@@ -56,8 +56,8 @@ paths:
         '500':
           description: Internal Server Error
 
-
-  # Search
+# OneMap REST APIs
+# Search
   /commonapi/search:
     get:
       tags:
@@ -105,8 +105,8 @@ paths:
         '500':
           description: Internal Server Error
 
-      
-  # Reverse Geocode (SVY21)
+# OneMap REST APIs      
+# Reverse Geocode (SVY21)
   /privateapi/commonsvc/revgeocodexy:     
     get:
       tags:
@@ -161,7 +161,8 @@ paths:
         '500':
           description: Internal Server Error
 
-  #Reverse Geocode(WGS84)
+#OneMap REST APIs
+#Reverse Geocode(WGS84)
   /privateapi/commonsvc/revgeocode:     
     get:
       tags:
@@ -216,8 +217,8 @@ paths:
         '500':
           description: Internal Server Error
 
-
-  #4326 (WGS84) to 3857
+#Coordinate Converter
+#4326 (WGS84) to 3857
   /commonapi/convert/4326to3857:     
     get:
       tags:
@@ -251,6 +252,7 @@ paths:
         '500':
           description: Internal Server Error
 
+#Coordinate Converter
 #4326(WGS84) to 3414(SVY21)
   /commonapi/convert/4326to3414:     
     get:
@@ -285,6 +287,7 @@ paths:
         '500':
           description: Internal Server Error
 
+#Coordinate Converter
 #3414(SVY21) to 3857
   /commonapi/convert/3414to3857:     
     get:
@@ -319,6 +322,7 @@ paths:
         '500':
           description: Internal Server Error
 
+#Coordinate Converter
 #3414(SVY21) to 4326(WGS84)
   /commonapi/convert/3414to4326:     
     get:
@@ -353,6 +357,7 @@ paths:
         '500':
           description: Internal Server Error
 
+#Coordinate Converter
 #3857 to 3414(SVY21)
   /commonapi/convert/3857to3414:     
     get:
@@ -387,6 +392,7 @@ paths:
         '500':
           description: Internal Server Error
 
+#Coordinate Converter
 #3857 to 4326(WGS84)
   /commonapi/convert/3857to4326:     
     get:
@@ -421,7 +427,7 @@ paths:
         '500':
           description: Internal Server Error
 
-
+#Themes
 #Check Theme Status
   /privateapi/themesvc/checkThemeStatus:     
     get:
@@ -439,7 +445,6 @@ paths:
           in: query
           type: string
           description: Queries status of a theme. Themes’ query names can be retrieved using [Get All Themes Info](https://docs.onemap.sg/#get-all-themes-info) service.
-          default: 1.3,103.8
           required: true
         - name: dateTime
           description: |
@@ -465,6 +470,7 @@ paths:
         '500':
           description: Internal Server Error
 
+#Themes
 #Get Theme Info
   /privateapi/themesvc/getThemeInfo:     
     get:
@@ -487,7 +493,6 @@ paths:
           in: query
           type: string
           description: Queries status of a theme. Themes’ query names can be retrieved using [Get All Themes Info](https://docs.onemap.sg/#get-all-themes-info) service.
-          default: 1.3,103.8
           required: true
       responses:
         '200':
@@ -499,6 +504,7 @@ paths:
         '500':
           description: Internal Server Error
 
+#Themes
 #Get All Themes Info
   /privateapi/themesvc/getAllThemesInfo:     
     get:
@@ -536,6 +542,957 @@ paths:
         '500':
           description: Internal Server Error
 
+#Themes
+#Retrieve Theme
+  /privateapi/themesvc/retrieveTheme:     
+    get:
+      tags:
+        - Themes
+      summary: Retrieve Theme
+      description: 'This API searches and returns specified list of themes that are filtered out via a search term.'
+      operationId: retrieveTheme
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: queryName
+          in: query
+          type: string
+          description: Queries status of a theme. Themes’ query names can be retrieved using [Get All Themes Info](https://docs.onemap.sg/#get-all-themes-info) service.
+          required: true
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+        - name: extents
+          in: query
+          type: string
+          description: Location provided by user.
+          required: false
+        
+      responses:
+        '200':
+          description: Successful
+        '403':
+          description: Forbidden
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+
+# Planning Area
+# Planning Area Polygons
+  /privateapi/popapi/getAllPlanningarea:     
+    get:
+      tags:
+        - Planning Area
+      summary: Planning Area Polygons
+      description: 'This set of JSON response provides users with information of Singapore’s planning area.'
+      operationId: getAllPlanningarea
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+        - name: year
+          in: query
+          type: string
+          description: |
+            This is the planning year that you are retrieving. Year Available: 1998,2008,2014
+          required: false
+        
+      responses:
+        '200':
+          description: Successful
+        '403':
+          description: Forbidden
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+
+# Planning Area
+# Names of Planning Area
+  /privateapi/popapi/getPlanningareaNames:     
+    get:
+      tags:
+        - Planning Area
+      summary: Names of Planning Area
+      description: 'This set of JSON response will retrieve the names of every planning area in Singapore.'
+      operationId: getPlanningareaNames
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+        - name: year
+          in: query
+          type: string
+          description: |
+            This is the planning year that you are retrieving. Year Available: 1998,2008,2014
+          required: false
+        
+      responses:
+        '200':
+          description: Successful
+        '403':
+          description: Forbidden
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+
+# Planning Area
+# Names of Planning Area
+  /privateapi/popapi/getPlanningarea:     
+    get:
+      tags:
+        - Planning Area
+      summary: Planning Area Query
+      description: 'This set of JSON response will retrieve a single planning area based on your given latitude and longitude.'
+      operationId: getPlanningarea
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+        - name: lat
+          in: query
+          type: string
+          description: This represents the Latitude position of your point.
+          required: true
+        - name: lng
+          in: query
+          type: string
+          description: This represents the Longitude position of your point.
+          required: true
+        - name: year
+          in: query
+          type: string
+          description: |
+            This is the planning year that you are retrieving. Year Available: 1998,2008,2014
+          required: false
+        
+      responses:
+         '200':
+          description: Successful
+         '403':
+          description: Forbidden
+         '401':
+          description: Unauthorized
+         '500':
+          description: Internal Server Error
+
+# Population Query
+# Names of Planning Area
+  /privateapi/popapi/getEconomicStatus:     
+    get:
+      tags:
+        - Population Query
+      summary: Economic Status Data
+      description: 'Users can retrieve data related to economic status of different planning area in Singapore.'
+      operationId: getEconomicStatus
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+        - name: year
+          in: query
+          type: string
+          description: |
+            The year selection is in the format of YYYY. For instance, 2010.
+          required: true
+        - name: planningArea
+          in: query
+          type: string
+          description: Retrieves data of specified planning area. The list of planning data names could be retrieved here, [List of Planning Area Names](https://docs.onemap.sg/#names-of-planning-area).
+          required: true
+        - name: gender
+          in: query
+          type: string
+          description: Based on gender {male or female}. Returns all results by default.
+          required: false
+        
+      responses:
+         '200':
+          description: Successful
+         '403':
+          description: Forbidden
+         '401':
+          description: Unauthorized
+         '500':
+          description: Internal Server Error
+
+# Population Query
+# Education Status Data
+  /privateapi/popapi/getEducationAttending:     
+    get:
+      tags:
+        - Population Query
+      summary: Education Status Data
+      description: 'Users can retrieve data related to educational status of different planning area in Singapore.'
+      operationId: getEducationAttending
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+        - name: year
+          in: query
+          type: string
+          description: |
+            The year selection is in the format of YYYY. For instance, 2010.
+          required: true
+        - name: planningArea
+          in: query
+          type: string
+          description: Retrieves data of specified planning area. The list of planning data names could be retrieved here, [List of Planning Area Names](https://docs.onemap.sg/#names-of-planning-area).
+          required: true
+        
+      responses:
+         '200':
+          description: Successful
+         '403':
+          description: Forbidden
+         '401':
+          description: Unauthorized
+         '500':
+          description: Internal Server Error
+
+# Population Query
+# Ethnic Distribution Data
+  /privateapi/popapi/getEthnicGroup:     
+    get:
+      tags:
+        - Population Query
+      summary: Ethnic Distribution Data
+      description: 'Users can retrieve data related to ethnic distribution of different planning area in Singapore.'
+      operationId: getEthnicGroup
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+        - name: year
+          in: query
+          type: string
+          description: |
+            The year selection is in the format of YYYY. For instance, 2010.
+          required: true
+        - name: planningArea
+          in: query
+          type: string
+          description: Retrieves data of specified planning area. The list of planning data names could be retrieved here, [List of Planning Area Names](https://docs.onemap.sg/#names-of-planning-area).
+          required: true
+        - name: gender
+          in: query
+          type: string
+          description: Based on gender {male or female}. Returns all results by default.
+          required: false 
+        
+      responses:
+         '200':
+          description: Successful
+         '403':
+          description: Forbidden
+         '401':
+          description: Unauthorized
+         '500':
+          description: Internal Server Error
+
+# Population Query         
+# Work Income For Household (Monthly)
+  /privateapi/popapi/getHouseholdMonthlyIncomeWork:     
+    get:
+      tags:
+        - Population Query
+      summary: Work Income For Household (Monthly)
+      description: 'Users can retrieve data related to monthly household work income of different planning area in Singapore.'
+      operationId: getHouseholdMonthlyIncomeWork
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+        - name: year
+          in: query
+          type: string
+          description: |
+            The year selection is in the format of YYYY. For instance, 2010.
+          required: true
+        - name: planningArea
+          in: query
+          type: string
+          description: Retrieves data of specified planning area. The list of planning data names could be retrieved here, [List of Planning Area Names](https://docs.onemap.sg/#names-of-planning-area).
+          required: true
+        
+      responses:
+         '200':
+          description: Successful
+         '403':
+          description: Forbidden
+         '401':
+          description: Unauthorized
+         '500':
+          description: Internal Server Error
+
+# Population Query         
+# Household Size Data
+  /privateapi/popapi/getHouseholdSize:     
+    get:
+      tags:
+        - Population Query
+      summary: Household Size Data
+      description: 'Users can retrieve data related to household size of different planning area in Singapore.'
+      operationId: getHouseholdSize
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+        - name: year
+          in: query
+          type: string
+          description: |
+            The year selection is in the format of YYYY. For instance, 2010.
+          required: true
+        - name: planningArea
+          in: query
+          type: string
+          description: Retrieves data of specified planning area. The list of planning data names could be retrieved here, [List of Planning Area Names](https://docs.onemap.sg/#names-of-planning-area).
+          required: true
+        
+      responses:
+         '200':
+          description: Successful
+         '403':
+          description: Forbidden
+         '401':
+          description: Unauthorized
+         '500':
+          description: Internal Server Error
+
+# Population Query         
+# Household Structure Data
+  /privateapi/popapi/getHouseholdStructure:     
+    get:
+      tags:
+        - Population Query
+      summary: Household Structure Data
+      description: 'Users can retrieve data related to household structure of different planning area in Singapore.'
+      operationId: getHouseholdStructure
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+        - name: year
+          in: query
+          type: string
+          description: |
+            The year selection is in the format of YYYY. For instance, 2010.
+          required: true
+        - name: planningArea
+          in: query
+          type: string
+          description: Retrieves data of specified planning area. The list of planning data names could be retrieved here, [List of Planning Area Names](https://docs.onemap.sg/#names-of-planning-area).
+          required: true
+        
+      responses:
+         '200':
+          description: Successful
+         '403':
+          description: Forbidden
+         '401':
+          description: Unauthorized
+         '500':
+          description: Internal Server Error
+
+# Population Query         
+# Income from Work Data
+  /privateapi/popapi/getIncomeFromWork:     
+    get:
+      tags:
+        - Population Query
+      summary: Income from Work Data
+      description: 'Users can retrieve data related to income from work of different planning area in Singapore.'
+      operationId: getIncomeFromWork
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+        - name: year
+          in: query
+          type: string
+          description: |
+            The year selection is in the format of YYYY. For instance, 2010.
+          required: true
+        - name: planningArea
+          in: query
+          type: string
+          description: Retrieves data of specified planning area. The list of planning data names could be retrieved here, [List of Planning Area Names](https://docs.onemap.sg/#names-of-planning-area).
+          required: true
+        
+      responses:
+         '200':
+          description: Successful
+         '403':
+          description: Forbidden
+         '401':
+          description: Unauthorized
+         '500':
+          description: Internal Server Error
+
+# Population Query         
+# Industry of Population Data
+  /privateapi/popapi/getIndustry:     
+    get:
+      tags:
+        - Population Query
+      summary: Industry of Population Data
+      description: 'Users can retrieve data related to industry of population of different planning area in Singapore.'
+      operationId: getIndustry
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+        - name: year
+          in: query
+          type: string
+          description: |
+            The year selection is in the format of YYYY. For instance, 2010.
+          required: true
+        - name: planningArea
+          in: query
+          type: string
+          description: Retrieves data of specified planning area. The list of planning data names could be retrieved here, [List of Planning Area Names](https://docs.onemap.sg/#names-of-planning-area).
+          required: true
+        
+      responses:
+         '200':
+          description: Successful
+         '403':
+          description: Forbidden
+         '401':
+          description: Unauthorized
+         '500':
+          description: Internal Server Error
+
+# Population Query         
+# Language Literacy Data
+  /privateapi/popapi/getLanguageLiterate:     
+    get:
+      tags:
+        - Population Query
+      summary: Language Literacy Data
+      description: 'Users can retrieve data related to language literacy of different planning area in Singapore.'
+      operationId: getLanguageLiterate
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+        - name: year
+          in: query
+          type: string
+          description: |
+            The year selection is in the format of YYYY. For instance, 2010.
+          required: true
+        - name: planningArea
+          in: query
+          type: string
+          description: Retrieves data of specified planning area. The list of planning data names could be retrieved here, [List of Planning Area Names](https://docs.onemap.sg/#names-of-planning-area).
+          required: true
+        
+      responses:
+         '200':
+          description: Successful
+         '403':
+          description: Forbidden
+         '401':
+          description: Unauthorized
+         '500':
+          description: Internal Server Error
+
+# Population Query
+# Marital Status Data
+  /privateapi/popapi/getMaritalStatus:     
+    get:
+      tags:
+        - Population Query
+      summary: Marital Status Data
+      description: 'Users can retrieve data related to marital status of different planning area in Singapore.'
+      operationId: getMaritalStatus
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+        - name: year
+          in: query
+          type: string
+          description: |
+            The year selection is in the format of YYYY. For instance, 2010.
+          required: true
+        - name: planningArea
+          in: query
+          type: string
+          description: Retrieves data of specified planning area. The list of planning data names could be retrieved here, [List of Planning Area Names](https://docs.onemap.sg/#names-of-planning-area).
+          required: true
+        - name: gender
+          in: query
+          type: string
+          description: Based on gender {male or female}. Returns all results by default.
+          required: false 
+        
+      responses:
+         '200':
+          description: Successful
+         '403':
+          description: Forbidden
+         '401':
+          description: Unauthorized
+         '500':
+          description: Internal Server Error
+
+# Population Query         
+# Mode of Transports to School Data
+  /privateapi/popapi/getModeOfTransportSchool:     
+    get:
+      tags:
+        - Population Query
+      summary: Mode of Transports to School Data
+      description: 'Users can retrieve data related to mode of transports to School of different planning area in Singapore.'
+      operationId: getModeOfTransportSchool
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+        - name: year
+          in: query
+          type: string
+          description: |
+            The year selection is in the format of YYYY. For instance, 2010.
+          required: true
+        - name: planningArea
+          in: query
+          type: string
+          description: Retrieves data of specified planning area. The list of planning data names could be retrieved here, [List of Planning Area Names](https://docs.onemap.sg/#names-of-planning-area).
+          required: true
+        
+      responses:
+         '200':
+          description: Successful
+         '403':
+          description: Forbidden
+         '401':
+          description: Unauthorized
+         '500':
+          description: Internal Server Error
+
+# Population Query         
+# Mode of Transport to Work Data
+  /privateapi/popapi/getModeOfTransportWork:     
+    get:
+      tags:
+        - Population Query
+      summary: Mode of Transports to School Data
+      description: 'Users can retrieve data related to mode of transport to work of different planning area in Singapore.'
+      operationId: getModeOfTransportWork
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+        - name: year
+          in: query
+          type: string
+          description: |
+            The year selection is in the format of YYYY. For instance, 2010.
+          required: true
+        - name: planningArea
+          in: query
+          type: string
+          description: Retrieves data of specified planning area. The list of planning data names could be retrieved here, [List of Planning Area Names](https://docs.onemap.sg/#names-of-planning-area).
+          required: true
+        
+      responses:
+         '200':
+          description: Successful
+         '403':
+          description: Forbidden
+         '401':
+          description: Unauthorized
+         '500':
+          description: Internal Server Error
+
+# Population Query         
+# Occupation Data
+  /privateapi/popapi/getOccupation:     
+    get:
+      tags:
+        - Population Query
+      summary: Occupation Data
+      description: 'Users can retrieve data related to occupation of different planning area in Singapore.'
+      operationId: getOccupation
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+        - name: year
+          in: query
+          type: string
+          description: |
+            The year selection is in the format of YYYY. For instance, 2010.
+          required: true
+        - name: planningArea
+          in: query
+          type: string
+          description: Retrieves data of specified planning area. The list of planning data names could be retrieved here, [List of Planning Area Names](https://docs.onemap.sg/#names-of-planning-area).
+          required: true
+        
+      responses:
+         '200':
+          description: Successful
+         '403':
+          description: Forbidden
+         '401':
+          description: Unauthorized
+         '500':
+          description: Internal Server Error
+
+# Population Query         
+# Age Data
+  /privateapi/popapi/getPopulationAgeGroup:     
+    get:
+      tags:
+        - Population Query
+      summary: Age Data
+      description: 'Users can retrieve data related to age of different planning area in Singapore.'
+      operationId: getPopulationAgeGroup
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+        - name: year
+          in: query
+          type: string
+          description: |
+            The year selection is in the format of YYYY. For instance, 2010.
+          required: true
+        - name: planningArea
+          in: query
+          type: string
+          description: Retrieves data of specified planning area. The list of planning data names could be retrieved here, [List of Planning Area Names](https://docs.onemap.sg/#names-of-planning-area).
+          required: true
+        
+      responses:
+         '200':
+          description: Successful
+         '403':
+          description: Forbidden
+         '401':
+          description: Unauthorized
+         '500':
+          description: Internal Server Error
+
+# Population Query         
+# Religion Data
+  /privateapi/popapi/getReligion:     
+    get:
+      tags:
+        - Population Query
+      summary: Religion Data
+      description: 'Users can retrieve data related to religion of different planning area in Singapore.'
+      operationId: getReligion
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+        - name: year
+          in: query
+          type: string
+          description: |
+            The year selection is in the format of YYYY. For instance, 2010.
+          required: true
+        - name: planningArea
+          in: query
+          type: string
+          description: Retrieves data of specified planning area. The list of planning data names could be retrieved here, [List of Planning Area Names](https://docs.onemap.sg/#names-of-planning-area).
+          required: true
+        
+      responses:
+         '200':
+          description: Successful
+         '403':
+          description: Forbidden
+         '401':
+          description: Unauthorized
+         '500':
+          description: Internal Server Error
+
+# Population Query         
+# Spoken Language Data
+  /privateapi/popapi/getSpokenAtHome:     
+    get:
+      tags:
+        - Population Query
+      summary: Spoken Language Data
+      description: 'Users can retrieve data related to spoken language of different planning area in Singapore.'
+      operationId: getSpokenAtHome
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+        - name: year
+          in: query
+          type: string
+          description: |
+            The year selection is in the format of YYYY. For instance, 2010.
+          required: true
+        - name: planningArea
+          in: query
+          type: string
+          description: Retrieves data of specified planning area. The list of planning data names could be retrieved here, [List of Planning Area Names](https://docs.onemap.sg/#names-of-planning-area).
+          required: true
+        
+      responses:
+         '200':
+          description: Successful
+         '403':
+          description: Forbidden
+         '401':
+          description: Unauthorized
+         '500':
+          description: Internal Server Error
+
+# Population Query         
+# Tenancy Data
+  /privateapi/popapi/getTenancy:     
+    get:
+      tags:
+        - Population Query
+      summary: Tenancy Data
+      description: 'Users can retrieve data related to tenancy of different planning area in Singapore.'
+      operationId: getTenancy
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+        - name: year
+          in: query
+          type: string
+          description: |
+            The year selection is in the format of YYYY. For instance, 2010.
+          required: true
+        - name: planningArea
+          in: query
+          type: string
+          description: Retrieves data of specified planning area. The list of planning data names could be retrieved here, [List of Planning Area Names](https://docs.onemap.sg/#names-of-planning-area).
+          required: true
+        
+      responses:
+         '200':
+          description: Successful
+         '403':
+          description: Forbidden
+         '401':
+          description: Unauthorized
+         '500':
+          description: Internal Server Error
+
+# Population Query         
+# Dwelling Type Household Data
+  /privateapi/popapi/getTypeOfDwellingHousehold:     
+    get:
+      tags:
+        - Population Query
+      summary: Dwelling Type Household Data
+      description: 'Users can retrieve data related to dwelling type household of different planning area in Singapore.'
+      operationId: getTypeOfDwellingHousehold
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+        - name: year
+          in: query
+          type: string
+          description: |
+            The year selection is in the format of YYYY. For instance, 2010.
+          required: true
+        - name: planningArea
+          in: query
+          type: string
+          description: Retrieves data of specified planning area. The list of planning data names could be retrieved here, [List of Planning Area Names](https://docs.onemap.sg/#names-of-planning-area).
+          required: true
+        
+      responses:
+         '200':
+          description: Successful
+         '403':
+          description: Forbidden
+         '401':
+          description: Unauthorized
+         '500':
+          description: Internal Server Error
+
+# Population Query         
+# Dwelling Type Population Data
+  /privateapi/popapi/getTypeOfDwellingPop:     
+    get:
+      tags:
+        - Population Query
+      summary: Dwelling Type Population Data
+      description: 'Users can retrieve data related to dwelling type population of different planning area in Singapore.'
+      operationId: getTypeOfDwellingPop
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+        - name: year
+          in: query
+          type: string
+          description: |
+            The year selection is in the format of YYYY. For instance, 2010.
+          required: true
+        - name: planningArea
+          in: query
+          type: string
+          description: Retrieves data of specified planning area. The list of planning data names could be retrieved here, [List of Planning Area Names](https://docs.onemap.sg/#names-of-planning-area).
+          required: true
+        
+      responses:
+         '200':
+          description: Successful
+         '403':
+          description: Forbidden
+         '401':
+          description: Unauthorized
+         '500':
+          description: Internal Server Error
 
 
 
