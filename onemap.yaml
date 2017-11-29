@@ -49,8 +49,10 @@ paths:
       responses:
         '200':
           description: Successful
-        '405':
-          description: Invalid Input
+        '403':
+          description: Forbidden
+        '401':
+          description: Unauthorized
         '500':
           description: Internal Server Error
 
@@ -92,8 +94,12 @@ paths:
       responses:
         '200':
           description: Successful
-        '405':
-          description: Invalid Input
+        '403':
+          description: Forbidden
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
 
       
   # Reverse Geocode (SVY21)
@@ -144,6 +150,12 @@ paths:
       responses:
         '200':
           description: Successful
+        '403':
+          description: Forbidden
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
 
   #Reverse Geocode(WGS84)
   /privateapi/commonsvc/revgeocode:     
@@ -193,6 +205,115 @@ paths:
       responses:
         '200':
           description: Successful
+        '403':
+          description: Forbidden
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+
+
+  #4326 (WGS84) to 3857
+  /commonapi/convert/4326to3857:     
+    get:
+      tags:
+        - Coordinates Converter
+      summary: This API provides 6 conversion functions between EPSG 3414 (SVY21), EPSG 3857 and EPSG 4326 (WGS84) formats.
+      description: 'This API retrieves a building address that lies within the defined buffer/radius of the specified latitude, longitude coordinates. Road names are retuned within 20m for the specified coordinates.'
+      operationId: 4326to3857
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: latitude
+          in: query
+          type: string
+          description: Latitude Coordinates in WGS84 format.
+          required: true
+        - name: longitude
+          in: query
+          type: string
+          description: Longitude Coordinates in WGS84 format.
+          required: true
+
+      responses:
+        '200':
+          description: Successful
+        '403':
+          description: Forbidden
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+
+#4326(WGS84) to 3414(SVY21)
+  /commonapi/convert/4326to3414:     
+    get:
+      tags:
+        - Coordinates Converter
+      summary: This API provides 6 conversion functions between EPSG 3414 (SVY21), EPSG 3857 and EPSG 4326 (WGS84) formats.
+      description: 'This API retrieves a building address that lies within the defined buffer/radius of the specified latitude, longitude coordinates. Road names are retuned within 20m for the specified coordinates.'
+      operationId: 4326to3857
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: latitude
+          in: query
+          type: string
+          description: Latitude Coordinates in WGS84 format.
+          required: true
+        - name: longitude
+          in: query
+          type: string
+          description: Longitude Coordinates in WGS84 format.
+          required: true
+
+      responses:
+        '200':
+          description: Successful
+        '403':
+          description: Forbidden
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+          
+#4326(WGS84) to 3414(SVY21)
+  /commonapi/convert/4326to3414:     
+    get:
+      tags:
+        - Coordinates Converter
+      summary: This API provides 6 conversion functions between EPSG 3414 (SVY21), EPSG 3857 and EPSG 4326 (WGS84) formats.
+      description: 'This API retrieves a building address that lies within the defined buffer/radius of the specified latitude, longitude coordinates. Road names are retuned within 20m for the specified coordinates.'
+      operationId: 4326to3857
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: latitude
+          in: query
+          type: string
+          description: Latitude Coordinates in WGS84 format.
+          required: true
+        - name: longitude
+          in: query
+          type: string
+          description: Longitude Coordinates in WGS84 format.
+          required: true
+
+      responses:
+        '200':
+          description: Successful
+        '403':
+          description: Forbidden
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
 
   /pet/findByTags:
     get:
