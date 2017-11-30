@@ -1494,6 +1494,165 @@ paths:
          '500':
           description: Internal Server Error
 
+# Route         
+# Mixed Transit Route
+  /privateapi/routingsvc/route:     
+    get:
+      tags:
+        - Route
+      summary: Public Transport Route
+      description:  |
+        This service calculates the distance and returns the drawn path between the specified start and end values depending on the routeType.
+        
+          ---
+
+        
+        There are 4 routeType available: **walk, drive , cycle and pt** (public transport). If the **routeType** is set to **pt**, more parameters will be available. This enables users to choose between 3 modes of transport. maxWalkDistance is the maximum walking distance. numItineraries may be used to limit the number of results returned.
+      operationId: route
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: start
+          in: query
+          type: string
+          description: The start point in lat,lng [(WGS84)](https://confluence.qps.nl/pages/viewpage.action?pageId=29855173)  format.
+          required: true
+          default: 1.3328572,103.74355220000007
+        - name: end
+          in: query
+          type: string
+          description: The end point in lat,lng [(WGS84)](https://confluence.qps.nl/pages/viewpage.action?pageId=29855173) format.
+          required: true
+          default: 1.32283828324684,103.936051543997
+        - name: routeType
+          in: query
+          type: string
+          description:  |
+            **Values:** walk, drive, pt, cycle
+            The different route types available. Route types must be in **lowercase**.
+          required: true
+          default: pt
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+        - name: date
+          description: |
+           The date of the selected **start** point in **YYYY-MM-DD**.
+            EG: **2016-04-30**.
+          required: true
+          type: string
+          in: query
+          default: 2017-02-03
+        - name: time
+          description: |
+           The time of the selected **start** point in [HH][MM][SS].
+            The time uses the 24-hour clock system.
+
+            **[HH]** refers to a zero-padded hour between 00 and 23.
+            **[MM]** refers to a zero-padded minute between 00 and 59. 
+            **[SS]** refers to a zero-padded second between 00 and 59.
+            EG: 15:30:00.
+          required: true
+          type: string
+          in: query
+          default: 07:35:00 
+        - name: mode
+          description: |
+           **Values:** TRANSIT, BUS, RAIL
+            The mode of transportation. The mode specified must be in **uppercase**.
+          required: true
+          type: string
+          in: query
+          default: TRANSIT   
+        - name: maxWalkDistance
+          description: The maximum walking distance set by the user.
+          required: true
+          type: integer
+          in: query  
+        - name: numItineraries
+          description: |
+            **Values:** 1 to 3
+            Limits the number of return results.
+          required: true
+          type: integer
+          in: query
+          default: 1  
+        
+      responses:
+         '200':
+          description: Successful
+         '403':
+          description: Forbidden
+         '401':
+          description: Unauthorized
+         '500':
+          description: Internal Server Error
+
+
+# Route         
+# Walk, Driving and Cycle
+  /privateapi/routingsvc/route:     
+    get:
+      tags:
+        - Route
+      summary: Walk, Driving, Cycle Route
+      description:  |
+        This service calculates the distance and returns the drawn path between the specified start and end values depending on the routeType.
+        
+          ---
+
+        
+        There are 4 routeType available: **walk, drive , cycle and pt** (public transport). If the **routeType** is set to **pt**, more parameters will be available. This enables users to choose between 3 modes of transport. maxWalkDistance is the maximum walking distance. numItineraries may be used to limit the number of results returned.
+      operationId: route
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: start
+          in: query
+          type: string
+          description: The start point in lat,lng [(WGS84)](https://confluence.qps.nl/pages/viewpage.action?pageId=29855173)  format.
+          required: true
+          default: 1.3328572,103.74355220000007
+        - name: end
+          in: query
+          type: string
+          description: The end point in lat,lng [(WGS84)](https://confluence.qps.nl/pages/viewpage.action?pageId=29855173) format.
+          required: true
+          default: 1.32283828324684,103.936051543997
+        - name: routeType
+          in: query
+          type: string
+          description:  |
+            **Values:** walk, drive, pt, cycle
+            The different route types available. Route types must be in **lowercase**.
+          required: true
+          default: pt
+        - name: token
+          in: query
+          type: string
+          description: API token provided by the [Authentication Service](https://docs.onemap.sg/#authentication-service-post)
+          required: true
+          default: 1  
+        
+      responses:
+         '200':
+          description: Successful
+         '403':
+          description: Forbidden
+         '401':
+          description: Unauthorized
+         '500':
+          description: Internal Server Error
+
+
+
+
 
 
 
