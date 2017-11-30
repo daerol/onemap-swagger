@@ -1495,12 +1495,11 @@ paths:
           description: Internal Server Error
 
 # Route         
-# Mixed Transit Route
   /privateapi/routingsvc/route:     
     get:
       tags:
         - Route
-      summary: Public Transport Route
+      summary: Route
       description:  |
         This service calculates the distance and returns the drawn path between the specified start and end values depending on the routeType.
         
