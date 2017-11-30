@@ -1506,7 +1506,7 @@ paths:
           ---
 
         
-        There are 4 routeType available: `walk, drive , cycle and pt` (public transport). If the **routeType** is set to `pt`, more parameters will be available. This enables users to choose between 3 modes of transport. maxWalkDistance is the maximum walking distance. numItineraries may be used to limit the number of results returned.
+        There are 4 routeType available: **walk, drive , cycle and pt** (public transport). If the **routeType** is set to **pt**, more parameters will be available. This enables users to choose between 3 modes of transport. maxWalkDistance is the maximum walking distance. numItineraries may be used to limit the number of results returned.
       operationId: route
       consumes:
         - application/json
@@ -1554,7 +1554,7 @@ paths:
             **[MM]** refers to a zero-padded minute between 00 and 59. 
             **[SS]** refers to a zero-padded second between 00 and 59.
             EG: 15:30:00.
-          required: false
+          required: fffalse
           type: string
           in: query
         - name: mode
