@@ -178,7 +178,7 @@ paths:
         - name: location
           in: query
           type: string
-          description: Latitude and longitude Coodinates in WGS84 format.
+          description: Latitude and longitude Coodinates in [(WGS84)](https://confluence.qps.nl/pages/viewpage.action?pageId=29855173) format.
           default: 1.3,103.8
           required: true
         - name: token
@@ -223,7 +223,7 @@ paths:
     get:
       tags:
         - Coordinates Converter
-      summary: This API provides 6 conversion functions between EPSG 3414 (SVY21), EPSG 3857 and EPSG 4326 (WGS84) formats.
+      summary: This API provides 6 conversion functions between EPSG 3414 (SVY21), EPSG 3857 and EPSG 4326 ([(WGS84)](https://confluence.qps.nl/pages/viewpage.action?pageId=29855173)) formats.
       description: 'This API retrieves a building address that lies within the defined buffer/radius of the specified latitude, longitude coordinates. Road names are retuned within 20m for the specified coordinates.'
       operationId: 4326to3857
       consumes:
@@ -234,12 +234,12 @@ paths:
         - name: latitude
           in: query
           type: string
-          description: Latitude Coordinates in WGS84 format.
+          description: Latitude Coordinates in [(WGS84)](https://confluence.qps.nl/pages/viewpage.action?pageId=29855173) format.
           required: true
         - name: longitude
           in: query
           type: string
-          description: Longitude Coordinates in WGS84 format.
+          description: Longitude Coordinates in [(WGS84)](https://confluence.qps.nl/pages/viewpage.action?pageId=29855173) format.
           required: true
 
       responses:
@@ -258,7 +258,7 @@ paths:
     get:
       tags:
         - Coordinates Converter
-      summary: This API provides 6 conversion functions between EPSG 3414 (SVY21), EPSG 3857 and EPSG 4326 (WGS84) formats.
+      summary: This API provides 6 conversion functions between EPSG 3414 (SVY21), EPSG 3857 and EPSG 4326 ([(WGS84)](https://confluence.qps.nl/pages/viewpage.action?pageId=29855173)) formats.
       description: 'This API retrieves a building address that lies within the defined buffer/radius of the specified latitude, longitude coordinates. Road names are retuned within 20m for the specified coordinates.'
       operationId: 4326to3414
       consumes:
@@ -269,12 +269,12 @@ paths:
         - name: latitude
           in: query
           type: string
-          description: Latitude Coordinates in WGS84 format.
+          description: Latitude Coordinates in [(WGS84)](https://confluence.qps.nl/pages/viewpage.action?pageId=29855173) format.
           required: true
         - name: longitude
           in: query
           type: string
-          description: Longitude Coordinates in WGS84 format.
+          description: Longitude Coordinates in [(WGS84)](https://confluence.qps.nl/pages/viewpage.action?pageId=29855173) format.
           required: true
 
       responses:
@@ -293,7 +293,7 @@ paths:
     get:
       tags:
         - Coordinates Converter
-      summary: This API provides 6 conversion functions between EPSG 3414 (SVY21), EPSG 3857 and EPSG 4326 (WGS84) formats.
+      summary: This API provides 6 conversion functions between EPSG 3414 (SVY21), EPSG 3857 and EPSG 4326 ([(WGS84)](https://confluence.qps.nl/pages/viewpage.action?pageId=29855173)) formats.
       description: 'This API retrieves a building address that lies within the defined buffer/radius of the specified latitude, longitude coordinates. Road names are retuned within 20m for the specified coordinates.'
       operationId: 3414to3857
       consumes:
@@ -328,7 +328,7 @@ paths:
     get:
       tags:
         - Coordinates Converter
-      summary: This API provides 6 conversion functions between EPSG 3414 (SVY21), EPSG 3857 and EPSG 4326 (WGS84) formats.
+      summary: This API provides 6 conversion functions between EPSG 3414 (SVY21), EPSG 3857 and EPSG 4326 ([(WGS84)](https://confluence.qps.nl/pages/viewpage.action?pageId=29855173)) formats.
       description: 'This API retrieves a building address that lies within the defined buffer/radius of the specified latitude, longitude coordinates. Road names are retuned within 20m for the specified coordinates.'
       operationId: 3414to4326
       consumes:
@@ -363,7 +363,7 @@ paths:
     get:
       tags:
         - Coordinates Converter
-      summary: This API provides 6 conversion functions between EPSG 3414 (SVY21), EPSG 3857 and EPSG 4326 (WGS84) formats.
+      summary: This API provides 6 conversion functions between EPSG 3414 (SVY21), EPSG 3857 and EPSG 4326 ([(WGS84)](https://confluence.qps.nl/pages/viewpage.action?pageId=29855173)) formats.
       description: 'This API retrieves a building address that lies within the defined buffer/radius of the specified latitude, longitude coordinates. Road names are retuned within 20m for the specified coordinates.'
       operationId: 3857to3414
       consumes:
@@ -398,7 +398,7 @@ paths:
     get:
       tags:
         - Coordinates Converter
-      summary: This API provides 6 conversion functions between EPSG 3414 (SVY21), EPSG 3857 and EPSG 4326 (WGS84) formats.
+      summary: This API provides 6 conversion functions between EPSG 3414 (SVY21), EPSG 3857 and EPSG 4326 ([(WGS84)](https://confluence.qps.nl/pages/viewpage.action?pageId=29855173)) formats.
       description: 'This API retrieves a building address that lies within the defined buffer/radius of the specified latitude, longitude coordinates. Road names are retuned within 20m for the specified coordinates.'
       operationId: 3857to4326
       consumes:
@@ -1587,6 +1587,121 @@ paths:
           description: Unauthorized
          '500':
           description: Internal Server Error
+
+# Static Map         
+  /commonapi/staticmap/getStaticImage:     
+    get:
+      tags:
+        - Static Map
+      summary: Static Map
+      description:  |
+        This API returns a static image of the map based on the defined parameters. Users may also overlay multiple point(s), polygon(s) or polyline(s) on the static map.
+        
+          ---
+          
+        he response is returned in PNG format in accordance to the parameter inputs. Users can also create personalised static maps via the [Static Map Creator](https://tools.onemap.sg/staticmap/).
+      operationId: getStaticImage
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: layerchosen
+          in: query
+          type: string
+          description: |
+              | **Values** | **Map Style** |
+              | ------- | -------- |
+              | night   | Night View    |
+              | grey   | Grey    |
+              | original   | Original    |
+              | default  | Default    |
+              | landlot  | Landlot    |
+
+
+              ---
+
+    
+              Provides users with a choice of the following base maps (Night, Grey, Original, Default and Land Lot) to be used for the static image.
+    
+          required: true
+        - name: lat
+          in: query
+          type: string
+          description: Latitude Coordinates in [(WGS84)](https://confluence.qps.nl/pages/viewpage.action?pageId=29855173) format.
+          required: true
+        - name: lng
+          in: query
+          type: string
+          description: Longitude Coordinates in [(WGS84)](https://confluence.qps.nl/pages/viewpage.action?pageId=29855173) format.
+          required: true
+        - name: postal
+          in: query
+          type: string
+          description: Either lat/lng or postal should be used. If postal code is provided as a parameter, the center point (lat/lng) will change.
+          required: true
+        - name: zoom
+          in: query
+          type: string
+          description: |
+            **Values:** 11- 19
+            The zoom level of the static image. The lower the value, the more zoomed out the static image.
+          required: true
+        - name: width
+          in: query
+          type: string
+          description: |
+            **Values:** 128-512
+            The width of the static image.
+          required: true
+        - name: height
+          in: query
+          type: string
+          description: |
+            **Values:** 128-512
+            The height of the static image.
+          required: true
+        - name: polygons
+          in: query
+          type: string
+          description: |
+            The coordinates of Polygon(s) to be overlaid on the base map. Polygon(s) and its colour are segregated by semicolon. Whereas each polygon is differentiated with a pipe. The start and end must be of the same point but all other points should be unique.
+          required: false
+        - name: lines
+          in: query
+          type: string
+          description: |
+            The coordinates of Line(s) to be overlaid on the base map. Line(s) and its colour and thickness are segregated by semicolon. Each line is differentiated with a pipe.
+          required: false
+        - name: points
+          in: query
+          type: string
+          description: |
+            The coordinates of Point(s) to be overlaid on the base map. Coordinates, colour and label of individual point are segregated with a comma. Each Point is differentiated with a pipe. This is an example of 2 points differentiated with pipe, **[1.31955,103.84223,"255,255,178","B"]|[1.31801,103.84224,"175,50,0","A"]**.
+          required: false
+        - name: color
+          in: query
+          type: string
+          description: |
+            Specifies the color of all lines. Color must be in RGB format. **EG: 255, 255, 255**
+          required: false
+        - name: fillColor
+          in: query
+          type: string
+          description: |
+            Specifies the fill color of all Polygons. Color must be in RGB format. **EG: 255, 255, 255**
+          required: false
+        
+      responses:
+         '200':
+          description: Successful
+         '403':
+          description: Forbidden
+         '401':
+          description: Unauthorized
+         '500':
+          description: Internal Server Error
+
 
 
 
