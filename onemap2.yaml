@@ -1554,7 +1554,7 @@ paths:
             **[MM]** refers to a zero-padded minute between 00 and 59. 
             **[SS]** refers to a zero-padded second between 00 and 59.
             EG: 15:30:00.
-          required: fffalse
+          required: false
           type: string
           in: query
         - name: mode
